@@ -92,12 +92,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Contact form handler ---- //
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Show toast notification
-      showToast('Thank you for your message! We\'ll get back to you soon.');
-      contactForm.reset();
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const formData = new FormData(contactForm);
+        const urlSearchParams = new URLSearchParams(formData);
+
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: urlSearchParams,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        });
+
+        if (response.ok) {
+          showToast('Thank you for your message! We\'ll get back to you soon.');
+          contactForm.reset();
+        } else {
+          showToast('Oops! There was a problem submitting your form.');
+        }
+      } catch (error) {
+        showToast('Oops! There was a network error.');
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
     });
   }
 
@@ -146,8 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let width, height, nodes = [];
     const NODE_COUNT = 80;
     const CONNECTION_DIST = 180;
-    const NODE_COLOR = 'rgba(140, 140, 140,';
-    const LINE_COLOR = 'rgba(100, 100, 100,';
+    const NODE_COLOR = 'rgba(71, 85, 105,';
+    const LINE_COLOR = 'rgba(51, 65, 85,';
 
     function resize() {
       width = canvas.width = window.innerWidth;

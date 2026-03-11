@@ -7,6 +7,7 @@
   <title>AlkynesV | VR Social Training Platform</title>
   <meta name="description"
     content="AlkynesV is a VR-based social training platform for neurodiverse students with ASD. Real-time AI feedback for facial expression training." />
+  <link rel="icon" type="image/x-icon" href="assets/logo5.ico">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,16 +16,16 @@
       theme: {
         extend: {
           colors: {
-            'ax-dark': '#0d0d0d',
-            'ax-bg': '#141414',
-            'ax-card': '#1c1c1c',
-            'ax-border': '#2a2a2a',
-            'ax-muted': '#3a3a3a',
-            'ax-dim': '#6b6b6b',
-            'ax-text': '#d4d4d4',
-            'ax-light': '#e8e8e8',
-            'ax-white': '#f5f5f5',
-            'ax-accent': '#8a8a8a',
+            'ax-dark': '#ffffff',
+            'ax-bg': '#f8fafc',
+            'ax-card': '#ffffff',
+            'ax-border': '#e2e8f0',
+            'ax-muted': '#e2e8f0',
+            'ax-dim': '#475569',
+            'ax-text': '#334155',
+            'ax-light': '#1e293b',
+            'ax-white': '#0f172a',
+            'ax-accent': '#64748b',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -61,10 +62,9 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-20">
       <!-- Logo -->
       <a href="#hero" class="flex items-center group">
-        <img src="assets/logo3.png" alt="AlkynesV Logo"
+        <img src="assets/logo4.png" alt="AlkynesV Logo"
           class="h-10 w-auto rounded transition-transform duration-300 group-hover:scale-110 -mr-1" />
-        <span class="text-xl font-display font-bold text-ax-white tracking-wide">Alkynes<span
-            class="text-ax-accent">V</span></span>
+        <span class="text-xl font-display font-bold text-ax-white tracking-wide">AlkynesV</span>
       </a>
 
       <!-- Desktop Nav Links -->
@@ -117,25 +117,25 @@
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center pt-32">
       <div class="reveal-up">
         <span
-          class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-ax-dim border border-ax-border mb-12">
+          class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#f8fafc] border border-[#1e293b] bg-[#0f172a] mb-12">
           VR Social Training Platform
         </span>
       </div>
 
       <div class="flex justify-center mb-8 reveal-up" style="animation-delay: 0.05s;">
-        <img src="assets/logo3.png" alt="AlkynesV Logo" class="h-28 sm:h-36 lg:h-44 w-auto object-contain" />
+        <img src="assets/logo4.png" alt="AlkynesV Logo" class="h-28 sm:h-36 lg:h-44 w-auto object-contain" />
       </div>
 
       <h1
         class="font-display font-900 text-5xl sm:text-6xl lg:text-8xl text-ax-white leading-[0.95] tracking-tight mb-6 reveal-up"
         style="animation-delay: 0.1s;">
-        Alkynes<span class="text-ax-accent">V</span>
+        AlkynesV
       </h1>
 
       <p class="max-w-2xl mx-auto text-base sm:text-lg text-ax-dim leading-relaxed mb-10 reveal-up"
         style="animation-delay: 0.2s;">
-        A virtual reality (VR)-based social training platform designed specifically for neurodiverse students with
-        Autism Spectrum Disorder (ASD). Real-time AI feedback within a safe and interactive environment.
+        A virtual reality (VR)-based social training platform designed specifically for VR projects. Real-time AI
+        feedback within a safe and interactive environment.
       </p>
 
       <!-- Demo Video -->
@@ -263,10 +263,10 @@
               <div class="absolute inset-0 flex items-center justify-center">
                 <div class="text-center">
                   <div
-                    class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-ax-muted/20 border border-ax-border flex items-center justify-center">
-                    <i data-lucide="brain" class="w-12 h-12 text-ax-accent"></i>
+                    class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-ax-muted/50 border border-ax-border flex items-center justify-center">
+                    <i data-lucide="brain" class="w-12 h-12 text-ax-white"></i>
                   </div>
-                  <p class="text-ax-dim text-sm">Powered by AI × VR Integration</p>
+                  <p class="text-ax-dim text-sm font-medium">Powered by AI × VR Integration</p>
                 </div>
               </div>
             </div>
@@ -434,7 +434,7 @@
       <div class="grid lg:grid-cols-2 gap-12">
         <!-- Contact Form -->
         <div class="reveal-left">
-          <form id="contact-form" class="space-y-6">
+          <form action="https://formspree.io/f/xyknwbko" method="POST" id="contact-form" class="space-y-6">
             <div>
               <label for="name" class="block text-sm font-medium text-ax-dim mb-2">Full Name</label>
               <input type="text" id="name" name="name" required
@@ -443,7 +443,7 @@
             </div>
             <div>
               <label for="email" class="block text-sm font-medium text-ax-dim mb-2">Email Address</label>
-              <input type="email" id="email" name="email" required
+              <input type="email" id="email" name="_replyto" required
                 class="w-full px-4 py-3 bg-ax-card border border-ax-border rounded-xl text-ax-white placeholder-ax-dim/50 focus:outline-none focus:border-ax-accent/50 focus:ring-1 focus:ring-ax-accent/20 transition-all duration-300"
                 placeholder="your@email.com" />
             </div>
@@ -454,7 +454,7 @@
                 placeholder="Tell us about your inquiry..."></textarea>
             </div>
             <button type="submit"
-              class="w-full py-3.5 px-6 bg-ax-muted/30 hover:bg-ax-muted/50 border border-ax-border hover:border-ax-accent/30 rounded-xl text-ax-white font-semibold transition-all duration-300 active:scale-[0.98]">
+              class="w-full py-3.5 px-6 bg-ax-white hover:opacity-90 border border-transparent rounded-xl text-ax-dark font-semibold transition-all duration-300 active:scale-[0.98]">
               Send Message
             </button>
           </form>
@@ -531,7 +531,7 @@
         <!-- Brand -->
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-4">
-            <img src="assets/logo.png" alt="AlkynesV" class="h-8 w-auto rounded" />
+            <img src="assets/logo4.png" alt="AlkynesV" class="h-8 w-auto rounded" />
             <span class="text-lg font-display font-bold text-ax-white">AlkynesV</span>
           </div>
           <p class="text-ax-dim text-sm leading-relaxed max-w-sm">
