@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlkynesV | VR Social Training Platform</title>
+  <meta name="description"
+    content="AlkynesV is a VR-based social training platform for neurodiverse students with ASD. Real-time AI feedback for facial expression training." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ax-dark': '#0d0d0d',
+            'ax-bg': '#141414',
+            'ax-card': '#1c1c1c',
+            'ax-border': '#2a2a2a',
+            'ax-muted': '#3a3a3a',
+            'ax-dim': '#6b6b6b',
+            'ax-text': '#d4d4d4',
+            'ax-light': '#e8e8e8',
+            'ax-white': '#f5f5f5',
+            'ax-accent': '#8a8a8a',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-ax-dark text-ax-text font-sans antialiased overflow-x-hidden">
+
+  <!-- Animated Background Elements -->
+  <canvas id="neuron-canvas"></canvas>
+  <div class="grid-overlay"></div>
+
+  <!-- ============================== -->
+  <!-- NAVBAR                         -->
+  <!-- ============================== -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-out">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center group">
+        <img src="assets/logo3.png" alt="AlkynesV Logo"
+          class="h-10 w-auto rounded transition-transform duration-300 group-hover:scale-110 -mr-1" />
+        <span class="text-xl font-display font-bold text-ax-white tracking-wide">Alkynes<span
+            class="text-ax-accent">V</span></span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ax-dim">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#solution" class="nav-link">Solution</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#tech" class="nav-link">Technology</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Mobile menu toggle -->
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 group"
+        aria-label="Toggle navigation menu">
+        <span
+          class="block w-6 h-0.5 bg-ax-text transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-2"></span>
+        <span class="block w-6 h-0.5 bg-ax-text transition-all duration-300 group-[.open]:opacity-0"></span>
+        <span
+          class="block w-6 h-0.5 bg-ax-text transition-all duration-300 origin-center group-[.open]:-rotate-45 group-[.open]:-translate-y-2"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-ax-bg/95 backdrop-blur-xl border-t border-ax-border">
+      <ul class="flex flex-col items-center gap-6 py-8 text-sm font-medium text-ax-dim">
+        <li><a href="#hero" class="nav-link-mobile">Home</a></li>
+        <li><a href="#about" class="nav-link-mobile">About</a></li>
+        <li><a href="#solution" class="nav-link-mobile">Solution</a></li>
+        <li><a href="#how-it-works" class="nav-link-mobile">How It Works</a></li>
+        <li><a href="#tech" class="nav-link-mobile">Technology</a></li>
+        <li><a href="#contact" class="nav-link-mobile">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================== -->
+  <!-- HERO SECTION                   -->
+  <!-- ============================== -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Abstract flowing background -->
+    <div class="absolute inset-0 hero-gradient"></div>
+    <div class="absolute inset-0 hero-noise opacity-[0.03]"></div>
+
+    <!-- Floating orbs background decoration -->
+    <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-ax-muted/10 blur-3xl floating-orb"></div>
+    <div class="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-ax-muted/10 blur-3xl floating-orb"
+      style="animation-delay: -3s;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center pt-32">
+      <div class="reveal-up">
+        <span
+          class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-ax-dim border border-ax-border mb-12">
+          VR Social Training Platform
+        </span>
+      </div>
+
+      <div class="flex justify-center mb-8 reveal-up" style="animation-delay: 0.05s;">
+        <img src="assets/logo3.png" alt="AlkynesV Logo" class="h-28 sm:h-36 lg:h-44 w-auto object-contain" />
+      </div>
+
+      <h1
+        class="font-display font-900 text-5xl sm:text-6xl lg:text-8xl text-ax-white leading-[0.95] tracking-tight mb-6 reveal-up"
+        style="animation-delay: 0.1s;">
+        Alkynes<span class="text-ax-accent">V</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-ax-dim leading-relaxed mb-10 reveal-up"
+        style="animation-delay: 0.2s;">
+        A virtual reality (VR)-based social training platform designed specifically for neurodiverse students with
+        Autism Spectrum Disorder (ASD). Real-time AI feedback within a safe and interactive environment.
+      </p>
+
+      <!-- Demo Video -->
+      <div class="max-w-4xl mx-auto reveal-up relative" style="animation-delay: 0.3s;">
+        <!-- Demo Indicator Tag -->
+        <div
+          class="absolute -top-3 -left-3 lg:-left-6 z-20 bg-ax-card/90 backdrop-blur-md border border-ax-border text-ax-white px-4 py-1.5 rounded-full shadow-lg flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-ax-accent animate-pulse"></span>
+          <span class="text-xs font-bold tracking-wider uppercase">Live Demo</span>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden border border-ax-border shadow-2xl video-container">
+          <video class="w-full h-auto aspect-video object-cover" controls autoplay muted loop playsinline
+            preload="metadata">
+            <source src="assets/video_demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="mt-16 reveal-up" style="animation-delay: 0.5s;">
+        <a href="#about"
+          class="inline-flex flex-col items-center gap-2 text-ax-dim/50 hover:text-ax-dim transition-colors">
+          <span class="text-xs tracking-widest uppercase">Scroll</span>
+          <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- ABOUT / THE PROBLEMS           -->
+  <!-- ============================== -->
+  <section id="about" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 section-gradient-1"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section header -->
+      <div class="text-center mb-20 reveal-up">
+        <p class="text-xs tracking-[0.3em] uppercase text-ax-dim mb-4">Understanding ASD</p>
+        <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-ax-white mb-6">The Problems</h2>
+        <p class="max-w-3xl mx-auto text-ax-dim leading-relaxed">
+          Autism Spectrum Disorder (ASD) is a complex developmental condition involving persistent challenges with
+          social communication, restricted interests and repetitive behavior.
+        </p>
+      </div>
+
+      <!-- Problem cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="problem-card reveal-up" style="animation-delay: 0.1s;">
+          <div class="card-icon">
+            <i data-lucide="scan-face" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-ax-white mb-3">Recognizing Expressions</h3>
+          <p class="text-ax-dim text-sm leading-relaxed">
+            Difficulty recognizing facial expressions, body language and emotional cues — making it hard to understand
+            what others are feeling.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="problem-card reveal-up" style="animation-delay: 0.2s;">
+          <div class="card-icon">
+            <i data-lucide="message-circle-warning" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-ax-white mb-3">Social Interactions</h3>
+          <p class="text-ax-dim text-sm leading-relaxed">
+            Responding appropriately in social interactions can be overwhelming, leading to anxiety and avoidance of
+            social situations.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="problem-card reveal-up" style="animation-delay: 0.3s;">
+          <div class="card-icon">
+            <i data-lucide="shield-alert" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-ax-white mb-3">Limited Safe Practice</h3>
+          <p class="text-ax-dim text-sm leading-relaxed">
+            Limited opportunities to practice social skills safely without risk of embarrassment or negative
+            consequences.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- THE SOLUTION                   -->
+  <!-- ============================== -->
+  <section id="solution" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 section-gradient-2"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Text -->
+        <div class="reveal-left">
+          <p class="text-xs tracking-[0.3em] uppercase text-ax-dim mb-4">Our Answer</p>
+          <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-ax-white mb-6">The Solution</h2>
+          <p class="text-ax-dim leading-relaxed text-lg mb-8">
+            A VR platform that trains autistic learners to produce the right facial expressions using real-time AI
+            feedback.
+          </p>
+          <p class="text-ax-dim leading-relaxed mb-8">
+            By leveraging Meta Quest 3 and integrating intelligent AI-driven dialogue, AlkynesV has the potential to
+            enhance social communication skills and further support users' ability to interact more confidently in
+            everyday life.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag">VR Training</span>
+            <span class="tag">Real-time AI</span>
+            <span class="tag">Facial Expressions</span>
+            <span class="tag">Safe Environment</span>
+          </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="reveal-right">
+          <div class="relative">
+            <div class="solution-visual">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div
+                    class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-ax-muted/20 border border-ax-border flex items-center justify-center">
+                    <i data-lucide="brain" class="w-12 h-12 text-ax-accent"></i>
+                  </div>
+                  <p class="text-ax-dim text-sm">Powered by AI × VR Integration</p>
+                </div>
+              </div>
+            </div>
+            <!-- Decorative corner accents like the screenshots -->
+            <div class="absolute -top-3 -left-3 w-12 h-12 border-t-2 border-l-2 border-ax-accent/30"></div>
+            <div class="absolute -top-3 -right-3 w-12 h-12 border-t-2 border-r-2 border-ax-accent/30"></div>
+            <div class="absolute -bottom-3 -left-3 w-12 h-12 border-b-2 border-l-2 border-ax-accent/30"></div>
+            <div class="absolute -bottom-3 -right-3 w-12 h-12 border-b-2 border-r-2 border-ax-accent/30"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- HOW IT WORKS                   -->
+  <!-- ============================== -->
+  <section id="how-it-works" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 section-gradient-1"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20 reveal-up">
+        <p class="text-xs tracking-[0.3em] uppercase text-ax-dim mb-4">The Process</p>
+        <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-ax-white">How It Works</h2>
+      </div>
+
+      <!-- Steps -->
+      <div class="relative">
+        <!-- Connecting line -->
+        <div
+          class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-ax-border to-transparent">
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step-row reveal-left">
+          <div class="step-content lg:text-right">
+            <div class="step-number">01</div>
+            <h3 class="text-xl font-bold text-ax-white mb-2">User Wears VR Headset</h3>
+            <p class="text-ax-dim">Meta Quest 3 provides an immersive, safe environment for social training scenarios.
+            </p>
+          </div>
+          <div class="step-dot"></div>
+          <div class="step-spacer"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-row reveal-right">
+          <div class="step-spacer"></div>
+          <div class="step-dot"></div>
+          <div class="step-content">
+            <div class="step-number">02</div>
+            <h3 class="text-xl font-bold text-ax-white mb-2">AI Tracks Facial Movements</h3>
+            <p class="text-ax-dim">Convai: AI Driven Dialogue and Personality using gemini-2.5-flash analyzes and
+              interprets user expressions in real time.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-row reveal-left">
+          <div class="step-content lg:text-right">
+            <div class="step-number">03</div>
+            <h3 class="text-xl font-bold text-ax-white mb-2">System Compares Expression</h3>
+            <p class="text-ax-dim">UI/UX Framework for Guiding Users in Accurate Facial Expression Selection evaluates
+              user performance.</p>
+          </div>
+          <div class="step-dot"></div>
+          <div class="step-spacer"></div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-row reveal-right">
+          <div class="step-spacer"></div>
+          <div class="step-dot"></div>
+          <div class="step-content">
+            <div class="step-number">04</div>
+            <h3 class="text-xl font-bold text-ax-white mb-2">Real-Time Feedback</h3>
+            <p class="text-ax-dim">Instant, gentle feedback guides users to improve their facial expressions and
+              emotional responses.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step-row reveal-left">
+          <div class="step-content lg:text-right">
+            <div class="step-number">05</div>
+            <h3 class="text-xl font-bold text-ax-white mb-2">Social Scenario Practice</h3>
+            <p class="text-ax-dim">Practice interacting with AI-driven avatars in realistic social scenarios to build
+              confidence.</p>
+          </div>
+          <div class="step-dot"></div>
+          <div class="step-spacer"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- TECHNOLOGY STACK               -->
+  <!-- ============================== -->
+  <section id="tech" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 section-gradient-2"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20 reveal-up">
+        <p class="text-xs tracking-[0.3em] uppercase text-ax-dim mb-4">Built With</p>
+        <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-ax-white">Technology Stack</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Tech 1 -->
+        <div class="tech-card reveal-up" style="animation-delay: 0.05s;">
+          <div class="tech-icon">
+            <i data-lucide="user-round" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-bold text-ax-white mb-2">Ready Player Me</h3>
+          <p class="text-ax-dim text-sm">3D character creation and avatar integration for personalized VR experiences.
+          </p>
+        </div>
+
+        <!-- Tech 2 -->
+        <div class="tech-card reveal-up" style="animation-delay: 0.15s;">
+          <div class="tech-icon">
+            <i data-lucide="bot" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-bold text-ax-white mb-2">Convai + Gemini</h3>
+          <p class="text-ax-dim text-sm">AI-driven dialogue and personality powered by gemini-2.5-flash for intelligent
+            conversations.</p>
+        </div>
+
+        <!-- Tech 3 -->
+        <div class="tech-card reveal-up" style="animation-delay: 0.25s;">
+          <div class="tech-icon">
+            <i data-lucide="person-standing" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-bold text-ax-white mb-2">Mixamo</h3>
+          <p class="text-ax-dim text-sm">High-quality character animations for realistic and natural avatar movements.
+          </p>
+        </div>
+
+        <!-- Tech 4 -->
+        <div class="tech-card reveal-up" style="animation-delay: 0.35s;">
+          <div class="tech-icon">
+            <i data-lucide="glasses" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-lg font-bold text-ax-white mb-2">Meta Quest 3</h3>
+          <p class="text-ax-dim text-sm">Cutting-edge VR headset providing immersive mixed-reality training
+            environments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- CONTACT & SOCIAL MEDIA         -->
+  <!-- ============================== -->
+  <section id="contact" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 section-gradient-1"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20 reveal-up">
+        <p class="text-xs tracking-[0.3em] uppercase text-ax-dim mb-4">Get In Touch</p>
+        <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-ax-white">Contact Us</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="reveal-left">
+          <form id="contact-form" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-ax-dim mb-2">Full Name</label>
+              <input type="text" id="name" name="name" required
+                class="w-full px-4 py-3 bg-ax-card border border-ax-border rounded-xl text-ax-white placeholder-ax-dim/50 focus:outline-none focus:border-ax-accent/50 focus:ring-1 focus:ring-ax-accent/20 transition-all duration-300"
+                placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-ax-dim mb-2">Email Address</label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-4 py-3 bg-ax-card border border-ax-border rounded-xl text-ax-white placeholder-ax-dim/50 focus:outline-none focus:border-ax-accent/50 focus:ring-1 focus:ring-ax-accent/20 transition-all duration-300"
+                placeholder="your@email.com" />
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-ax-dim mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full px-4 py-3 bg-ax-card border border-ax-border rounded-xl text-ax-white placeholder-ax-dim/50 focus:outline-none focus:border-ax-accent/50 focus:ring-1 focus:ring-ax-accent/20 transition-all duration-300 resize-none"
+                placeholder="Tell us about your inquiry..."></textarea>
+            </div>
+            <button type="submit"
+              class="w-full py-3.5 px-6 bg-ax-muted/30 hover:bg-ax-muted/50 border border-ax-border hover:border-ax-accent/30 rounded-xl text-ax-white font-semibold transition-all duration-300 active:scale-[0.98]">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Social Media & Info -->
+        <div class="reveal-right">
+          <div class="lg:pl-8 space-y-8">
+            <div>
+              <h3 class="text-xl font-bold text-ax-white mb-4">Connect With Us</h3>
+              <p class="text-ax-dim leading-relaxed mb-8">
+                Follow our journey as we build the future of social training for neurodiverse learners. Stay updated on
+                our latest developments and research.
+              </p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="grid grid-cols-2 gap-4">
+              <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link">
+                <i data-lucide="twitter" class="w-5 h-5"></i>
+                <span>Twitter / X</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link">
+                <i data-lucide="youtube" class="w-5 h-5"></i>
+                <span>YouTube</span>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener" class="social-link">
+                <i data-lucide="github" class="w-5 h-5"></i>
+                <span>GitHub</span>
+              </a>
+              <a href="mailto:hello@alkynesv.com" class="social-link">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+                <span>Email</span>
+              </a>
+            </div>
+
+            <!-- Info cards -->
+            <div class="space-y-4 pt-4">
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-ax-card/50 border border-ax-border">
+                <i data-lucide="map-pin" class="w-5 h-5 text-ax-accent mt-0.5 shrink-0"></i>
+                <div>
+                  <p class="text-sm font-semibold text-ax-white">Location</p>
+                  <p class="text-sm text-ax-dim">Malaysia</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-ax-card/50 border border-ax-border">
+                <i data-lucide="users" class="w-5 h-5 text-ax-accent mt-0.5 shrink-0"></i>
+                <div>
+                  <p class="text-sm font-semibold text-ax-white">Target Audience</p>
+                  <p class="text-sm text-ax-dim">Teens and young adults with ASD</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- FOOTER                         -->
+  <!-- ============================== -->
+  <footer class="relative py-16 border-t border-ax-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="assets/logo.png" alt="AlkynesV" class="h-8 w-auto rounded" />
+            <span class="text-lg font-display font-bold text-ax-white">AlkynesV</span>
+          </div>
+          <p class="text-ax-dim text-sm leading-relaxed max-w-sm">
+            AlkynesV — a VR-based social training platform to empower neurodiverse students through AI-driven facial
+            expression training.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-sm font-semibold text-ax-white mb-4 tracking-wide uppercase">Quick Links</h4>
+          <ul class="space-y-2 text-sm text-ax-dim">
+            <li><a href="#hero" class="hover:text-ax-white transition-colors">Home</a></li>
+            <li><a href="#about" class="hover:text-ax-white transition-colors">About</a></li>
+            <li><a href="#how-it-works" class="hover:text-ax-white transition-colors">How It Works</a></li>
+            <li><a href="#contact" class="hover:text-ax-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div>
+          <h4 class="text-sm font-semibold text-ax-white mb-4 tracking-wide uppercase">Follow Us</h4>
+          <div class="flex gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social"><i
+                data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="footer-social"><i data-lucide="twitter"
+                class="w-4 h-4"></i></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-social"><i
+                data-lucide="linkedin" class="w-4 h-4"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="footer-social"><i data-lucide="youtube"
+                class="w-4 h-4"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="footer-social"><i data-lucide="github"
+                class="w-4 h-4"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-ax-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-ax-dim">&copy; 2026 AlkynesV. All rights reserved.</p>
+        <p class="text-xs text-ax-dim">Crafted with purpose for a more inclusive world.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
